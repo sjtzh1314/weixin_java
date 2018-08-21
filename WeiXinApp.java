@@ -17,96 +17,96 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import io.appium.java_client.TouchAction;
 import org.openqa.selenium.NoSuchElementException;
 
-//java-client1.2.1°æ±¾ÓÃappiumDriver 2.2.0ÓÃAndroidDriver£¬ÒÔÉÏ°æ±¾»á³ö´í
+//java-client1.2.1ç‰ˆæœ¬ç”¨appiumDriver 2.2.0ç”¨AndroidDriverï¼Œä»¥ä¸Šç‰ˆæœ¬ä¼šå‡ºé”™
 public class WeiXinApp {
 	
     public static void main(String[] args) throws MalformedURLException, InterruptedException{
        
     	AndroidDriver driver = init();
     	WebDriverWait wait = new WebDriverWait(driver, 300);
-    	login("13691467901","sunjingtao1314",wait);
+    	login("ç”¨æˆ·å","å¯†ç ",wait);
     	enter(wait);
     	crawl(wait,driver);
     }
     /**
-     * ³õÊ¼»¯
+     * åˆå§‹åŒ–
      * @return
      * @throws MalformedURLException
      * @throws InterruptedException
      */
     private static  AndroidDriver init() throws MalformedURLException, InterruptedException{
-    	//Çı¶¯ÅäÖÃ³õÊ¼»¯
+    	//é©±åŠ¨é…ç½®åˆå§‹åŒ–
         DesiredCapabilities capabilities = new DesiredCapabilities();
-        //Éè±¸Ãû³Æ
+        //è®¾å¤‡åç§°
         capabilities.setCapability("deviceName", "Coolpad8675-0x03a2b1f1");
 //        capabilities.setCapability("deviceName", "emulator-5554");
 //        capabilities.setCapability("deviceName", "127.0.0.1:62001");
         capabilities.setCapability("automationName", "Appium");
-        //Æ½Ì¨
+        //å¹³å°
         capabilities.setCapability("platformName", "Android");
 //        capabilities.setCapability("platformVersion", "6.0");
-        //app°üÃû
+        //appåŒ…å
         capabilities.setCapability("appPackage", "com.tencent.mm");
-        //Èë¿ÚÀàÃû
+        //å…¥å£ç±»å
         capabilities.setCapability("appActivity", ".ui.LauncherUI");
-      //AppiumµØÖ·
+      //Appiumåœ°å€
         AndroidDriver driver = new AndroidDriver(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
 		return driver;
     }
     /**
-     * µÇÂ¼Î¢ĞÅ
+     * ç™»å½•å¾®ä¿¡
      * @param username
      * @param password
      */
     private static void login(String username,String password,WebDriverWait wait){
     	
-    	// µÇÂ¼°´Å¥
+    	// ç™»å½•æŒ‰é’®
     	WebElement login = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("com.tencent.mm:id/d75")));
         login.click();
-        // ÊÖ»úÊäÈë
+        // æ‰‹æœºè¾“å…¥
         WebElement phone = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("com.tencent.mm:id/hz")));
         phone.sendKeys(username);
-        // ÏÂÒ»²½
+        // ä¸‹ä¸€æ­¥
         WebElement next = wait.until(ExpectedConditions.elementToBeClickable(By.id("com.tencent.mm:id/alr")));
         next.click();
-        // ÃÜÂë
+        // å¯†ç 
         WebElement password1 = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@resource-id='com.tencent.mm:id/hz'][1]")));
         password1.sendKeys(password);
-        // Ìá½»
+        // æäº¤
         WebElement submit = wait.until(ExpectedConditions.elementToBeClickable(By.id("com.tencent.mm:id/alr")));
         submit.click();
     }
     /**
-     * ½øÈëÅóÓÑÈ¦
+     * è¿›å…¥æœ‹å‹åœˆ
      */
     private static void enter(WebDriverWait wait){
-    	// Ñ¡Ïî¿¨ ·¢ÏÖ
+    	// é€‰é¡¹å¡ å‘ç°
     	WebElement tab = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@resource-id='com.tencent.mm:id/b0w'][3]")));
         tab.click();
-        // ÅóÓÑÈ¦
+        // æœ‹å‹åœˆ
         WebElement moments = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("com.tencent.mm:id/aab")));
         moments.click();
     }
     /**
-     * ÅÀÈ¡
+     * çˆ¬å–
      */
     private static void crawl(WebDriverWait wait,AndroidDriver driver){
     	while(true){
-            //µ±Ç°Ò³ÃæÏÔÊ¾µÄËùÓĞ×´Ì¬
+            //å½“å‰é¡µé¢æ˜¾ç¤ºçš„æ‰€æœ‰çŠ¶æ€
     		List<WebElement> items = wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath("//*[@resource-id='com.tencent.mm:id/dkb']//android.widget.FrameLayout")));
-             // ÉÏ»¬
+             // ä¸Šæ»‘
             driver.swipe(300, 300, 300, 300, 700);
-            // ±éÀúÃ¿Ìõ×´Ì¬
+            // éå†æ¯æ¡çŠ¶æ€
             for(WebElement item:items){
                 try{
-                    // êÇ³Æ
+                    // æ˜µç§°
                     String nickname = item.findElement(By.id("com.tencent.mm:id/as6")).getText();
-                    // ÕıÎÄ
+                    // æ­£æ–‡
                     String content = item.findElement(By.id("com.tencent.mm:id/ib")).getText();
-                    // ÈÕÆÚ
+                    // æ—¥æœŸ
                     String date = item.findElement(By.id("com.tencent.mm:id/dki")).getText();
                     
-                    // ´¦ÀíÈÕÆÚ
+                    // å¤„ç†æ—¥æœŸ
 //                    date = self.processor.date(date)
                     System.out.println(nickname+","+content+","+date);
 //                    data = {
@@ -114,11 +114,11 @@ public class WeiXinApp {
 //                        'content': content,
 //                        'date': date,
 //                    }
-                    // ²åÈëMongoDB
+                    // æ’å…¥MongoDB
 //                    self.collection.update({'nickname': nickname, 'content': content}, {'$set': data}, True)
 //                    sleep(SCROLL_SLEEP_TIME)
                 }catch(Exception NoSuchElementException){
-                	System.out.println("Î´ÕÒµ½¸ÃÔªËØ");
+                	System.out.println("æœªæ‰¾åˆ°è¯¥å…ƒç´ ");
                 }
                 finally{
                 	driver.quit();
